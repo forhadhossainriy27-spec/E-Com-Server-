@@ -1,20 +1,28 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
-
-dotenv.config();
 
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
+
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.json({
+  res.status(200).json({
     success: true,
-    message: "MERN Ecommerce API Running...",
+    message: "MERN Ecommerce API Running",
+  });
+});
+
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    database: "Connected",
+    server: "Running",
+    timestamp: new Date(),
   });
 });
 
