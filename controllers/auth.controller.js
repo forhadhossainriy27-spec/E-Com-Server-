@@ -58,6 +58,22 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   });
 });
 
+const logoutUser = asyncHandler(async (req, res) => {
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  sendResponse({
+    res,
+    statusCode: 200,
+    success: true,
+    message: "Logout successful.",
+    data: null,
+  });
+});
+
 module.exports = {
-  registerUser, loginUser, getCurrentUser
+  registerUser, loginUser, logoutUser, getCurrentUser
 };
