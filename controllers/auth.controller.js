@@ -1,5 +1,5 @@
 const asyncHandler = require("../middleware/asyncHandler");
-const { registerService } = require("../services/auth.service");
+const { registerService, loginService } = require("../services/auth.service");
 const sendResponse = require("../utils/sendResponse");
 const setTokenCookie = require("../utils/setTokenCookie");
 
@@ -25,6 +25,27 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 });
 
+const loginUser = asyncHandler(async (req, res) => {
+  const { token, user } = await loginService(req.body);
+
+  setTokenCookie(res, token);
+
+  sendResponse({
+    res,
+    statusCode: 200,
+    success: true,
+    message: "Login successful.",
+    data: {
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    },
+  });
+});
+
 module.exports = {
-  registerUser,
+  registerUser, loginUser
 };

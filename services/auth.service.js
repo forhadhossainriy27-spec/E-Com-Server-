@@ -26,6 +26,27 @@ const registerService = async (userData) => {
   };
 };
 
+const loginService = async ({ email, password }) => {
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    throw new ApiError(401, "Invalid email or password.");
+  }
+
+  const isMatch = await user.comparePassword(password);
+
+  if (!isMatch) {
+    throw new ApiError(401, "Invalid email or password.");
+  }
+
+  const token = generateToken(user._id);
+
+  return {
+    token,
+    user,
+  };
+};
+
 module.exports = {
-  registerService,
+  registerService, loginService,
 };
