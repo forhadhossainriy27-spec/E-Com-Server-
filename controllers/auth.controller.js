@@ -46,6 +46,18 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 });
 
+const getCurrentUser = asyncHandler(async (req, res) => {
+  sendResponse({
+    res,
+    statusCode: 200,
+    success: true,
+    message: "Current user fetched successfully.",
+    data: {
+      user: req.user,
+    },
+  });
+});
+
 module.exports = {
-  registerUser, loginUser
+  registerUser, loginUser, getCurrentUser
 };

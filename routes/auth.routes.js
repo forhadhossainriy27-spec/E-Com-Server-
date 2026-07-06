@@ -6,10 +6,11 @@ const {
 } = require("../validators/auth.validator");
 
 const {
-  registerUser, loginUser,
+  registerUser, loginUser, getCurrentUser,
 } = require("../controllers/auth.controller");
 
 const validate = require("../validators/validationResult");
+const protect = require("../middleware/protect");
 
 router.post(
   "/register",
@@ -23,6 +24,12 @@ router.post(
   loginValidator,
   validate,
   loginUser
+);
+
+router.get(
+  "/me",
+  protect,
+  getCurrentUser
 );
 
 module.exports = router;
