@@ -4,6 +4,9 @@ const cookieParser = require("cookie-parser");
 
 const authRoutes = require("./routes/auth.routes");
 
+const notFound = require("./middleware/notFound");
+const errorHandler = require("./middleware/errorHandler");
+
 const app = express();
 
 app.use(cors());
@@ -18,5 +21,11 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+
+// Not Found Middleware
+app.use(notFound);
+
+// Global Error Handler
+app.use(errorHandler);
 
 module.exports = app;
