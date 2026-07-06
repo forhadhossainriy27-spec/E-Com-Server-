@@ -1,9 +1,12 @@
+const env = require("../config/env");
+const AUTH = require("../constants/auth");
+
 const setTokenCookie = (res, token) => {
-  res.cookie("accessToken", token, {
+  res.cookie(AUTH.COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    maxAge: AUTH.COOKIE_MAX_AGE,
   });
 };
 

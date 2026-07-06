@@ -6,12 +6,13 @@ const authRoutes = require("./routes/auth.routes");
 
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
+const env = require("./config/env");
 
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: env.CLIENT_URL,
     credentials: true,
   })
 );
