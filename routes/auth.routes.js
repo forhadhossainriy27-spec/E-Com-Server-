@@ -5,6 +5,17 @@ const {
   registerUser,
 } = require("../controllers/auth.controller");
 
-router.post("/register", registerUser);
+const {
+  registerValidator,
+} = require("../validators/auth.validator");
+
+const validate = require("../validators/validationResult");
+
+router.post(
+  "/register",
+  registerValidator,
+  validate,
+  registerUser
+);
 
 module.exports = router;

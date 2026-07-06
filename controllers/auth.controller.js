@@ -6,10 +6,6 @@ const ApiError = require("../utils/ApiError");
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, phone } = req.body;
 
-    if (!name || !email || !password) {
-        throw new ApiError(400, "Please fill all required fields.");
-    }
-
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
